@@ -1,26 +1,163 @@
 <!DOCTYPE html>
-<html>
+  <html>
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
   </head>
   <body>
     <script>
+      
 
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
 
+
+        const timeAgo = function(){
+
+          $('.tweet').foreach(function(tweet){
+          let time = tweet.attr('date-time');
+          console.log(time);
+
+          
+
+          })
+          timeAgo();
+        }
+        $('body').prepend('<div class="Header"></div>');
+        $('.Header').css('margin-bottom', '40px');
+        $('.Header').css('font-size', '20px');
+        $('.Header').css('position', 'relative');
+        $('.Header').css('padding', '30px 0');
+        $('.Header').css('background-color', 'none');
+        $('<div class="container"></div>').appendTo('.Header');
+        $('.container').css('padding-left', '15px');
+        $('.container').css('padding-right', '15px');
+        $('.container').css('margin-left', 'auto');
+        $('.container').css('margin-right', 'auto');
+        $('.container').append('<h1>Twittler</h1>');
+        $('h1').css('margin', '.67em 0');
+        $('h1').css('color', 'white');
+        $('.Header').css('padding-left', '570px');
+        //$('.tweetContent').css('color', 'white');
+        $('.tweetContent').css('background-color', 'none');
+        //$('.tweetContent').css('padding', 'none');         
+      
+
+        
+        
         var index = streams.home.length - 1;
+        $('<div class="tweetContent"></div>').appendTo('body');
+
+        const addTweet = function (time, twee) {
+            var $mainEle = $('<li class="tweet"></li>');
+            var $element1 = $('<div class="tweetText"></div>');
+            var $header1 = $('<div class="tweetHeader" ></div>');
+            $element1.text(twee.message);
+            $header1.attr('data-time', time);
+            $header1.attr('data-user', twee.user);
+            $header1.text(time + '    @' + twee.user);
+
+            $mainEle.prependTo($('.tweetContent'))
+            $element1.appendTo($mainEle)
+            $header1.prependTo($mainEle)
+          // $mainEle.apppendTo($element1).prepend($header1).appendTo('.tweetContent');
+          }
+          $('.tweetContent').css('margin', '50px');
+          //$('.tweetContent').css('margin-top', '5px');
+          $('.tweetContent').css('color', 'white');
+          //$('.tweetContent').css('background-color', 'white');
+          $('.tweetContent').css('padding', '50px');
+          $('body').css('background', 'url(bg.jpg)');
+          //$('.tweetContent').css('max-width', '500px');
+          //$('.tweetContent').css('margin-left', '100px');
+          //$('.tweetContent').css('padding', '50px');
+            
+
+
+        
+
+        
+        // $('<div class="tweetText"></div>').appendTo('.tweet')
+        //$('<div class="tweetHeader"></div>').prepend('.tweet')
         while(index >= 0){
+
+
+          
+
+
+          var d = new Date();
+          var dateText = d.toTimeString().split(' ')[0];
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+          
+          addTweet(dateText, tweet);
+
+          // var $tweet = $('<li class="tweet"></li>');
+          // $tweet.append('<div class="tweetText"></div>')
+          // $tweet.prepend('<div class="tweetHeader" ></div >')
+        
+          // $tweet.text('(' + dateText + ')' + ' @' + tweet.user + ': ' + tweet.message);
+          // console.log($tweet);
+          // $tweet.appendTo($('.tweetContent'));
           index -= 1;
         }
 
+
+
+        $(".tweetContent").click(function () {
+            var shawn = streams.users.shawndrost.length;
+            while (shawn >= 0) {
+
+
+
+
+
+              var d = new Date();
+              var dateText = d.toTimeString().split(' ')[0];
+              var tweet = streams.home[shawn];
+
+              addTweet(dateText, tweet);
+
+              shawn -= 1;
+            }
+            shawn = streams.users.shawndrost.length;
+
+          }) 
+          $('.tweet').css('border', '1px solid #7db2e6')
+          $('.tweetHeader').css('text-align', 'center');
+          $('.tweetText').css('text-align', 'center');
+          $('<div class="sort"></div>').appendTo('.Header');
+          $('.sort').append('<label="newTweet">Tweet</label>');
+          $('.sort').append('<form id="sendTweet" name="newTweet"></form>');
+          $('.sort').css('color', 'red');
+          $('#sendTweet').append('<input type="text" id="newTweet" value=""> </input>')
+
+
+      
+        // let $input = $('<input type="submit">').on('submit', function(e){console.log(currentTarget.val());})
+        // $('#sendTweet').prepend($input);
+        $('#sendTweet').on('submit', function(event){
+          alert($(this).val());
+          console.log($(this).value())
+          
+          ;
+
+        visitor = true;
+        writeTweet('INSERT EVENT TEXT HERE');
+
+        
+        
+        
+
+      
+        });
+        
+
+ 
       });
+      
 
     </script>
   </body>
